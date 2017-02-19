@@ -8,6 +8,26 @@ socket.on('disconnect', () => {
   console.log('Disconnected from server');
 });
 
+const vm = new Vue({
+  el: '#app',
+  data: {
+    sendingMessage: '',
+    receivingMessages: [],
+  },
+  methods: {
+    submit() {
+      socket.emit('createMessage', {
+        from: 'User',
+        text: this.sendingMessage,
+      }, () => {
+        // callback();
+      });
+      // clear input
+      this.sendingMessage = '';
+    },
+  },
+});
+
 socket.on('newMessage', message => {
-  console.log(`${message.from}: ${message.text}`);
+  vm.receivingMessages.push(message);
 });
