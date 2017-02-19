@@ -15,7 +15,7 @@ const vm = new Vue({
     receivingMessages: [],
   },
   methods: {
-    submit() {
+    send_message() {
       socket.emit('createMessage', {
         from: 'User',
         text: this.sendingMessage,
@@ -25,9 +25,22 @@ const vm = new Vue({
       // clear input
       this.sendingMessage = '';
     },
+    send_location() {
+      if (!navigator.geolocation) return alert('Geolocation not supported!');
+      navigator.geolocation.getCurrentPosition(position => {
+        socket.emit('createLocationMessage', {
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+      }, () => alert('Unable to fetch location'));
+    },
   },
 });
 
 socket.on('newMessage', message => {
+  vm.receivingMessages.push(message);
+});
+
+socket.on('newLocationMessage', message => {
   vm.receivingMessages.push(message);
 });
