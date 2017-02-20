@@ -4,26 +4,34 @@
 <head>
   <meta charset="UTF-8">
   <title>Chat APP</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <div id="app">
-    <p>Welcome to the chat app!</p>
-    <ol>
-      <li v-for='receivingMessage in receivingMessages'>
-        <div v-if=receivingMessage.url>
-          {{receivingMessage.from}}: <a :href=receivingMessage.url target='_blank'>My current position</a>
-        </div>
-        <div v-else>
-          {{receivingMessage.from}}: {{receivingMessage.text}}
-        </div>
-      </li>
-    </ol>
-    <form @submit.prevent>
-      <input type="text" v-model='sendingMessage' placeholder="Message...">
-      <button @click='send_message'>Send</button>
-    </form>
-    <button @click='send_location'>Send Location</button>
+  <div id="app" class='chat'>
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
+    <div class="chat__main">
+      <ol class='chat__messages'>
+        <li v-for='receivingMessage in receivingMessages'>
+          <div v-if=receivingMessage.url>
+            {{receivingMessage.from}}: <a :href=receivingMessage.url target='_blank'>My current position</a>
+          </div>
+          <div v-else>
+            {{receivingMessage.from}}: {{receivingMessage.text}}
+          </div>
+        </li>
+      </ol>
+      <div class="chat__footer">
+        <form @submit.prevent>
+          <input type="text" v-model='sendingMessage' placeholder="Message..." autofocus autocomplete="off">
+          <button @click='send_message'>Send</button>
+        </form>
+        <button @click='send_location' :disabled='sendLocationButtonDisabled'>{{sendLocationButtonText}}</button>
+      </div>
+    </div>
   </div>
   <script src='/socket.io/socket.io.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>

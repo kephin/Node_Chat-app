@@ -13,6 +13,8 @@ const vm = new Vue({
   data: {
     sendingMessage: '',
     receivingMessages: [],
+    sendLocationButtonText: 'Send location',
+    sendLocationButtonDisabled: false,
   },
   methods: {
     send_message() {
@@ -20,19 +22,23 @@ const vm = new Vue({
         from: 'User',
         text: this.sendingMessage,
       }, () => {
-        // callback();
+        this.sendingMessage = '';
       });
-      // clear input
-      this.sendingMessage = '';
     },
     send_location() {
       if (!navigator.geolocation) return alert('Geolocation not supported!');
+      this.sendLocationButtonDisabled = true;
+      this.sendLocationButtonText = 'Send location...';
       navigator.geolocation.getCurrentPosition(position => {
         socket.emit('createLocationMessage', {
           lat: position.coords.latitude,
           long: position.coords.longitude,
         });
-      }, () => alert('Unable to fetch location'));
+      }, () => {
+        alert('Unable to fetch location');
+      });
+      this.sendLocationButtonDisabled = false;
+      this.sendLocationButtonText = 'Send location';
     },
   },
 });
