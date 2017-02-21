@@ -30,15 +30,18 @@ const vm = new Vue({
       this.sendLocationButtonDisabled = true;
       this.sendLocationButtonText = 'Send location...';
       navigator.geolocation.getCurrentPosition(position => {
+        this.sendLocationButtonDisabled = false;
+        this.sendLocationButtonText = 'Send location';
         socket.emit('createLocationMessage', {
           lat: position.coords.latitude,
           long: position.coords.longitude,
         });
       }, () => {
+        this.sendLocationButtonDisabled = false;
+        this.sendLocationButtonText = 'Send location';
         alert('Unable to fetch location');
       });
-      this.sendLocationButtonDisabled = false;
-      this.sendLocationButtonText = 'Send location';
+
     },
   },
 });
