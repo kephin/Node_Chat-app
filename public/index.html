@@ -17,10 +17,10 @@
       <ol class='chat__messages'>
         <li v-for='receivingMessage in receivingMessages'>
           <div v-if=receivingMessage.url>
-            {{receivingMessage.from}}: <a :href=receivingMessage.url target='_blank'>My current position</a>
+            {{receivingMessage.from}} ({{receivingMessage.createdAt}}): <a :href=receivingMessage.url target='_blank'>My current position</a>
           </div>
           <div v-else>
-            {{receivingMessage.from}}: {{receivingMessage.text}}
+            {{receivingMessage.from}} ({{receivingMessage.createdAt}}): {{receivingMessage.text}}
           </div>
         </li>
       </ol>
@@ -35,6 +35,7 @@
   </div>
   <script src='/socket.io/socket.io.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
   <script src='js/index.js'></script>
 </body>
 

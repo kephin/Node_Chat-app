@@ -47,9 +47,11 @@ const vm = new Vue({
 });
 
 socket.on('newMessage', message => {
+  message.createdAt = moment(message.createdAt).format('h:mm a');
   vm.receivingMessages.push(message);
 });
 
 socket.on('newLocationMessage', message => {
+  message.createdAt = moment(message.createdAt).format('h:mm a');
   vm.receivingMessages.push(message);
 });
