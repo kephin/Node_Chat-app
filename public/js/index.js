@@ -41,7 +41,6 @@ const vm = new Vue({
         this.sendLocationButtonText = 'Send location';
         alert('Unable to fetch location');
       });
-
     },
   },
 });

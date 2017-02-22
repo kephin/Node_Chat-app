@@ -15,12 +15,16 @@
     </div>
     <div class="chat__main">
       <ol class='chat__messages'>
-        <li v-for='receivingMessage in receivingMessages'>
-          <div v-if=receivingMessage.url>
-            {{receivingMessage.from}} ({{receivingMessage.createdAt}}): <a :href=receivingMessage.url target='_blank'>My current position</a>
+        <li class='message' v-for='receivingMessage in receivingMessages'>
+          <div class='message__title'>
+            <h4>{{receivingMessage.from}}</h4>
+            <span>{{receivingMessage.createdAt}}</span>
           </div>
-          <div v-else>
-            {{receivingMessage.from}} ({{receivingMessage.createdAt}}): {{receivingMessage.text}}
+          <div class='message__body' v-if=receivingMessage.url>
+            <p><a :href=receivingMessage.url target='_blank'>My current position</a></p>
+          </div>
+          <div class='message__body' v-else>
+            <p>{{receivingMessage.text}}</p>
           </div>
         </li>
       </ol>
