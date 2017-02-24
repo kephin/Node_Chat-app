@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, usser-scalalbe=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <title>Chap | ChatApp</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div id="app" class='chat'>
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
+    <div class="chat__main">
+      <ol id='messages' class='chat__messages' v-chat-scroll="{always: false}">
+        <li class='message' v-for='receivingMessage in receivingMessages'>
+          <div class='message__title'>
+            <h4>{{receivingMessage.from}}</h4>
+            <span>{{receivingMessage.createdAt}}</span>
+          </div>
+          <div class='message__body' v-if=receivingMessage.url>
+            <p><a :href=receivingMessage.url target='_blank'>My current position</a></p>
+          </div>
+          <div class='message__body' v-else>
+            <p>{{receivingMessage.text}}</p>
+          </div>
+        </li>
+      </ol>
+      <div class="chat__footer">
+        <form @submit.prevent>
+          <input type="text" v-model='sendingMessage' placeholder="Message..." autofocus autocomplete="off">
+          <button @click='send_message'>Send</button>
+        </form>
+        <button @click='send_location' :disabled='sendLocationButtonDisabled'>{{sendLocationButtonText}}</button>
+      </div>
+    </div>
+  </div>
+  <script src='/socket.io/socket.io.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+  <script src='js/library/vue-chat-scroll.js'></script>
+  <script src='js/chat.js'></script>
+</body>
+
+</html>
