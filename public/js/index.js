@@ -1,5 +1,23 @@
 const socket = io();
 
+// const scrollToBottom = () => {
+//   const messages = document.querySelector('#messages');
+//   const newMessage = messages.lastElementChild;
+
+//   const newMessageHeight = () => {
+//     if (newMessage) return newMessage.scrollHeight;
+//     return 0;
+//   };
+//   const lastMessageHeight = () => {
+//     if (newMessage && newMessage.previousElementSibling) return newMessage.previousElementSibling.scrollHeight;
+//     return 0;
+//   };
+
+//   if (messages.scrollHeight <= messages.scrollTop + messages.clientHeight + newMessageHeight() + lastMessageHeight()) {
+//     messages.scrollTop = messages.scrollHeight;
+//   }
+// };
+
 socket.on('connect', () => {
   console.log('Connected to server');
 });
@@ -43,6 +61,11 @@ const vm = new Vue({
       });
     },
   },
+  /*watch: {
+    receivingMessages() {
+      scrollToBottom();
+    },
+  },*/
 });
 
 socket.on('newMessage', message => {
