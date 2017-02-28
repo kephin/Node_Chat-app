@@ -51,7 +51,6 @@ const vm = new Vue({
   methods: {
     send_message() {
       socket.emit('createMessage', {
-        from: 'User',
         text: this.sendingMessage,
       }, () => {
         this.sendingMessage = '';
