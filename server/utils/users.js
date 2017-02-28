@@ -16,7 +16,7 @@ class Users {
   getUser(id) {
     const isId = user => user.id === id;
     if (!this.users.find(isId)) return undefined;
-    return this.users.find(isId).name;
+    return this.users.find(isId);
   }
   getUserList(room) {
     return this.users

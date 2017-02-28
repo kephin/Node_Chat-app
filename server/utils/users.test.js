@@ -63,7 +63,7 @@ describe('Users', () => {
 
   it('should find user', () => {
     //arrange
-    const expected = 'kevin';
+    const expected = users.users[0];
     //act
     const actual = users.getUser('1');
     //assert
